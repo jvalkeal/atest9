@@ -11,9 +11,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: e2e
+      - name: Start scdf
         working-directory: ui
         run: |
           docker-compose -f cypress-dc-local.yml up -d
-          npm install
-          npm run cy:run-dc-local
+      - uses: cypress-io/github-action@v2
+        with:
+          working-directory: ui
+          config-file: cypress-dc-local.json
+          browser: chrome
+          headless: true
+          
+     
